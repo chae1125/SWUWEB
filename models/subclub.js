@@ -2,37 +2,33 @@
 
 const Sequelize = require('sequelize');
 
-class Comment_like extends Sequelize.Model{
+class Subclub extends Sequelize.Model{
     static init(sequelize){
         return super.init({
-            comment_like_id: {
-                type: Sequelize.BIGINT,
+            sub_id: {
+                type: Sequelize.INTEGER,
                 allowNull: false,
                 primaryKey: true,
               },
-              comment_id: {
-                type: Sequelize.BIGINT,
+              subname: {
+                type: Sequelize.STRING,
                 allowNull: true
               },
-              user_id: {
-                type: Sequelize.BIGINT,
+              subcontent: {
+                type: Sequelize.TEXT,
                 allowNull: true
               },
               club_id: {
                 type: Sequelize.INTEGER,
                 allowNull: true
               },
-              sub_id: {
-                type: Sequelize.INTEGER,
-                allowNull: false
-              },
-             
+              
         }, {
             sequelize,
             timestamps: false,
             underscored: false,
-            modelName: 'Comment_like',
-            tableName: 'comment_like',
+            modelName: 'Subclub',
+            tableName: 'subclub',
             paranoid: false,
             charset: 'utf8',
             collate: 'utf8_general_ci',
@@ -43,4 +39,4 @@ class Comment_like extends Sequelize.Model{
     static associate(db){}
 };
 
-module.exports = Comment_like;
+module.exports = Subclub;

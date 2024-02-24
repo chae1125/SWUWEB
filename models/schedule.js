@@ -2,33 +2,13 @@
 
 const Sequelize = require('sequelize');
 
-class Comment extends Sequelize.Model{
+class Schedule extends Sequelize.Model{
     static init(sequelize){
         return super.init({
-            comment_id: {
+            schedule_id: {
                 type: Sequelize.BIGINT,
                 allowNull: false,
                 primaryKey: true,
-              },
-              comment_content: {
-                type: Sequelize.TEXT,
-                allowNull: true
-              },
-              is_delete: {
-                type: Sequelize.BOOLEAN,
-                allowNull: true
-              },
-              comment_st: {
-                type: Sequelize.DATE,
-                allowNull: true
-              },
-              comment_like: {
-                type: Sequelize.BIGINT,
-                allowNull: false
-              },
-              post_id: {
-                type: Sequelize.BIGINT,
-                allowNull: true
               },
               user_id: {
                 type: Sequelize.BIGINT,
@@ -42,13 +22,29 @@ class Comment extends Sequelize.Model{
                 type: Sequelize.INTEGER,
                 allowNull: true
               },
-            
+              schname: {
+                type: Sequelize.STRING,
+                allowNull: false
+              },
+              schcontent: {
+                type: Sequelize.STRING,
+                allowNull: true
+              },
+              stattime: {
+                type: Sequelize.DATE,
+                allowNull: true
+              },
+              endtime: {
+                type: Sequelize.DATE,
+                allowNull: true
+              },
+              
         }, {
             sequelize,
             timestamps: false,
             underscored: false,
-            modelName: 'Comment',
-            tableName: 'comment',
+            modelName: 'Schedule',
+            tableName: 'schedule',
             paranoid: false,
             charset: 'utf8',
             collate: 'utf8_general_ci',
@@ -59,4 +55,4 @@ class Comment extends Sequelize.Model{
     static associate(db){}
 };
 
-module.exports = Comment;
+module.exports = Schedule;
