@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const signUpController = require('../Controllers/signup');
+const signUpController = require('../controllers/signup');
 
 router.get('/checkDuplicate', signUpController.checkDuplicate);
 

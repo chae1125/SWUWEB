@@ -40,7 +40,8 @@ class Club extends Sequelize.Model{
     
 
     static associate(models){
-      this.hasMany(models.Clubuser, {foreignKey: 'club_id' });
+      this.hasMany(models.Clubuser, { foreignKey: 'club_id' });
+      this.hasMany(models.Subclub, { foreignKey: 'club_id' });
     }
 };
 

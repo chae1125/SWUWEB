@@ -3,12 +3,14 @@ const Subclub = require('../models/subclub');
 const SubclubUser = require('../models/subclubusers');
 
 exports.getUserSubclubs = async (req, res) => {
+
+
   try {
     const userId = req.params.id;
     const user = await User.findOne({
       where: { id: userId },
     });
-
+    // SubclubUser 모델과 Subclub 모델을 조인하여 유저가 참여 중인 소모임 목록을 조회합니다.
     const subclubList = await SubclubUser.findAll({
       where: { UserId: userId }, 
       include: [
@@ -19,40 +21,24 @@ exports.getUserSubclubs = async (req, res) => {
       ],
     });
 
-    console.log(subclubList);
+    console.log(subclubList)
+    const Allsubclublist = await Subclub.findAll({
+      
+          
+      
+    });
 
-    const Allsubclublist = await Subclub.findAll();
-    const totalCount = Allsubclublist.length;
-    console.log(Allsubclublist);
+    console.log(Allsubclublist)
 
-    console.log({ user: user.username });
-    
-    const subclubs = await user.getSubclubs(); // 현재 유저가 참여한 소모임 목록
+    console.log({user:user.username});
+    res.render('subclub', { user: user.username, subclubList,Allsubclublist });
 
-    const Subclubsuserlist = await Promise.all(
-      subclubs.map(async (subclub) => {
-        const users = await subclub.getUsers(); 
-        const memberCount = users.length; // 회원 수 계산
-        return { subclub, users, memberCount };// 같은 소모임에 참여한 유저 목록
-       
-      })
-    );
-   // 가져올 소모임의 이름 설정
-
-
-    console.log(Subclubsuserlist);
-    
-    res.render('smallgrouplists', { user: user.username, subclubList, Allsubclublist,totalCount, Subclubsuserlist  });
-
+   
   } catch (error) {
-    console.error('에러 발생:', error);
+    console.error('소모임 목록 조회 오류:', error);
     res.status(500).send('Internal Server Error');
   }
 }
-
-
-
-
 
 // exports.getAllSubclubs = async (req, res) => {
  

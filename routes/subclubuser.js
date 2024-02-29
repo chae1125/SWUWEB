@@ -3,6 +3,6 @@ const subuserlist = require('../Controllers/subclubusers');
 
 const router = express.Router();
 
-router.get('/getMembers/:subclubname', subuserlist.getMembers);
+router.get('/:id', subuserlist.getUserGroupMembers);
 
 module.exports = router;

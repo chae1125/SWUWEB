@@ -1,5 +1,3 @@
-//user.js
-
 const Sequelize = require('sequelize');
 
 class Schedule extends Sequelize.Model{
@@ -9,18 +7,19 @@ class Schedule extends Sequelize.Model{
                 type: Sequelize.BIGINT,
                 allowNull: false,
                 primaryKey: true,
+                autoIncrement: true
               },
               user_id: {
                 type: Sequelize.BIGINT,
-                allowNull: true
+                allowNull: false
               },
               club_id: {
-                type: Sequelize.INTEGER,
-                allowNull: true
+                type: Sequelize.BIGINT,
+                allowNull: false
               },
               sub_id: {
-                type: Sequelize.INTEGER,
-                allowNull: true
+                type: Sequelize.BIGINT,
+                allowNull: false
               },
               schname: {
                 type: Sequelize.STRING,
@@ -30,13 +29,13 @@ class Schedule extends Sequelize.Model{
                 type: Sequelize.STRING,
                 allowNull: true
               },
-              stattime: {
-                type: Sequelize.DATE,
+              time: {
+                type: Sequelize.TIME,
                 allowNull: true
               },
-              endtime: {
+              date: {
                 type: Sequelize.DATE,
-                allowNull: true
+                allowNull: false
               },
               
         }, {
@@ -52,7 +51,11 @@ class Schedule extends Sequelize.Model{
     }
 
 
-    static associate(db){}
+    static associate(models){
+      this.belongsTo(models.User, { foreignKey: 'user_id' });
+        this.belongsTo(models.Club, { foreignKey: 'club_id' });
+        this.belongsTo(models.Subclub, { foreignKey: 'sub_id' });
+    }
 };
 
 module.exports = Schedule;

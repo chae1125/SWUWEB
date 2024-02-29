@@ -1,3 +1,4 @@
+//user.js
 
 const Sequelize = require('sequelize');
 

@@ -8,5 +8,6 @@ router.get('/:clubId/members', clubController.getMembersByClubId);
 
 router.get('/user/clubs', clubController.getUserClubs);
 
+router.post('/:clubId/members/:memberId/assign-leader', clubController.assignLeader);
 
 module.exports = router;

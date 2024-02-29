@@ -7,19 +7,24 @@ const SubClubUser= require('../models/subclubusers');
 
 // controllers/userController.js
 
-exports.getMembers = async (req, res) => {
-  try {
-    const subclubname = req.params.subclubname;
-    const subclub = await Subclub.findOne({
-      where: { subclubname: subclubname },
-    });
-    // 서브클럽 이름을 기반으로 회원 목록을 조회하는 로직 작성
-    const membersList = await subclub.getUsers(); 
-    console.log(membersList)// 예시 함수, 실제 함수명으로 변경해야 함
-    res.json({ membersList });
-} catch (error) {
-    console.error('회원 목록 조회 오류:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-}
 
-};
+exports.getUserGroupMembers = async (req, res) => {
+  try {
+    const userId = req.params.id; // 현재 로그인한 사용자의 ID
+
+    const user = await User.findByPk(userId);
+    const subclubs = await user.getSubclubs(); // 현재 유저가 참여한 소모임 목록
+
+    const Subclubsuserlist = await Promise.all(
+      subclubs.map(async (subclub) => {
+        const users = await subclub.getUsers(); // 같은 소모임에 참여한 유저 목록
+        return { subclub, users };
+      })
+    );
+
+    res.render('subclubuser', { user: req.user, Subclubsuserlist });
+  } catch (error) {
+    console.error('에러 발생:', error);
+    res.status(500).send('Internal Server Error');
+  }
+}

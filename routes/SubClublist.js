@@ -7,5 +7,4 @@ router.get('/:id', Subclublist.getUserSubclubs);
 
 
 
-
 module.exports = router;

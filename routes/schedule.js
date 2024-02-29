@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Scheduleregister = require('../Controllers/scheduleregister');
+const scheduleController = require('../controllers/schedule');
 
-router.get('/view', Scheduleregister.getclubinfo);
-router.post('/', Scheduleregister.createSchedule);
-
+// GET /schedule/:year/:month/:day 라우트에 대한 처리
+router.get('/:year/:month/:day', scheduleController.getScheduleByDate);
 
 module.exports = router;
